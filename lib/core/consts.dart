@@ -11,6 +11,8 @@ class StartScreen {
   final double startDescriptionTextLeftRightPadding = 8.0;
   final double handLeftPadding = 109;
   final double handRightPadding = 117;
+  final double logoTextTopPadding = 35;
+  final double logoTextBottomPadding = 120;
 
   const StartScreen();
 }

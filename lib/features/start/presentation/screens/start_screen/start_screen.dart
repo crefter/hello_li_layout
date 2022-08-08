@@ -42,9 +42,9 @@ class StartScreen extends StatelessWidget {
                 child: Image.asset(Assets.wavingHand),
               ),
               Padding(
-                padding: const EdgeInsets.only(
-                  top: 35,
-                  bottom: 120,
+                padding: EdgeInsets.only(
+                  top: Consts.startScreen.logoTextTopPadding,
+                  bottom: Consts.startScreen.logoTextBottomPadding,
                 ),
                 child: Image.asset(Assets.logoText),
               ),
