@@ -45,8 +45,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-/assets/start_screen/blob1.png
-/assets/start_screen/blob2.png
-/assets/start_screen/blob3.png
-/assets/start_screen/logo_text.png
-/assets/start_screen/waving_hand.png
