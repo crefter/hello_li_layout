@@ -17,87 +17,103 @@ class StartScreen extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Positioned(
-            bottom: 0,
-            left: 0,
+            bottom: Consts.zero,
+            left: Consts.zero,
             child: Image.asset(Assets.blob1),
           ),
           Positioned(
-            top: 0,
-            left: 0,
+            top: Consts.zero,
+            left: Consts.zero,
             child: Image.asset(Assets.blob2),
           ),
           Positioned(
             top: MediaQuery.of(context).size.height / 5,
-            right: 0,
+            right: Consts.zero,
             child: Image.asset(Assets.blob3),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  left: Consts.startScreen.handLeftPadding,
-                  right: Consts.startScreen.handRightPadding,
-                ),
-                child: Image.asset(Assets.wavingHand),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: Consts.startScreen.logoTextTopPadding,
-                  bottom: Consts.startScreen.logoTextBottomPadding,
-                ),
-                child: Image.asset(Assets.logoText),
-              ),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  left: Consts.startScreen.startDescriptionTextLeftRightPadding,
-                  right:
-                      Consts.startScreen.startDescriptionTextLeftRightPadding,
-                ),
-                child: Text(
-                  Strings.startDescription,
-                  style: GoogleFonts.roboto(
-                    textStyle: CupertinoTheme.of(context)
-                        .textTheme
-                        .textStyle
-                        .copyWith(
-                          fontSize: Consts.startScreen.startDescriptionTextSize,
-                          fontWeight: FontWeight.w300,
-                        ),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: Consts.startScreen.startButtonLeftRightPadding,
-                  right: Consts.startScreen.startButtonLeftRightPadding,
-                  top: Consts.startScreen.startButtonTopPadding,
-                  bottom: Consts.startScreen.startButtonBottomPadding,
-                ),
-                child: CupertinoButton(
-                  color: Colors.marromClaro2,
-                  onPressed: () {},
-                  child: Text(
-                    Strings.startButton,
-                    style: CupertinoTheme.of(context)
-                        .textTheme
-                        .textStyle
-                        .copyWith(
-                            fontSize: Consts.startScreen.startButtonTextSize,
-                            color: Colors.c1),
-                  ),
-                ),
-              ),
-            ],
-          )
+          const _StartScreenLogo(),
+          const _DescriptionAndButton()
         ],
       ),
     ));
+  }
+}
+
+class _StartScreenLogo extends StatelessWidget {
+  const _StartScreenLogo({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+            left: Consts.startScreen.handLeftPadding,
+            right: Consts.startScreen.handRightPadding,
+          ),
+          child: Image.asset(Assets.wavingHand),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            top: Consts.startScreen.logoTextTopPadding,
+            bottom: Consts.startScreen.logoTextBottomPadding,
+          ),
+          child: Image.asset(Assets.logoText),
+        ),
+      ],
+    );
+  }
+}
+
+class _DescriptionAndButton extends StatelessWidget {
+  const _DescriptionAndButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+            left: Consts.startScreen.startDescriptionTextLeftRightPadding,
+            right: Consts.startScreen.startDescriptionTextLeftRightPadding,
+          ),
+          child: Text(
+            Strings.startDescription,
+            style: GoogleFonts.roboto(
+              textStyle:
+                  CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                        fontSize: Consts.startScreen.startDescriptionTextSize,
+                        fontWeight: FontWeight.w300,
+                      ),
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            left: Consts.startScreen.startButtonLeftRightPadding,
+            right: Consts.startScreen.startButtonLeftRightPadding,
+            top: Consts.startScreen.startButtonTopPadding,
+            bottom: Consts.startScreen.startButtonBottomPadding,
+          ),
+          child: CupertinoButton(
+            color: Colors.marromClaro2,
+            onPressed: () {},
+            child: Text(
+              Strings.startButton,
+              style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                  fontSize: Consts.startScreen.startButtonTextSize,
+                  color: Colors.c1),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

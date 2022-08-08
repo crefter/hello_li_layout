@@ -1,5 +1,6 @@
 abstract class Consts {
   static const StartScreen startScreen = StartScreen();
+  static const double zero = 0;
 }
 
 class StartScreen {
