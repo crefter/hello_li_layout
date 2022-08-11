@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hello_li_layout/core/assets.dart';
 import 'package:hello_li_layout/core/colors.dart';
-import 'package:hello_li_layout/core/consts.dart';
+import 'package:hello_li_layout/core/consts.dart' as core_consts;
 import 'package:hello_li_layout/core/strings.dart';
+import 'package:hello_li_layout/features/start/assets.dart';
+import 'package:hello_li_layout/features/start/consts.dart' as start_consts;
 
 class StartScreen extends StatelessWidget {
   const StartScreen({Key? key}) : super(key: key);
@@ -17,18 +18,18 @@ class StartScreen extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Positioned(
-            bottom: Consts.zero,
-            left: Consts.zero,
+            bottom: core_consts.Consts.zero,
+            left: core_consts.Consts.zero,
             child: Image.asset(Assets.blob1),
           ),
           Positioned(
-            top: Consts.zero,
-            left: Consts.zero,
+            top: core_consts.Consts.zero,
+            left: core_consts.Consts.zero,
             child: Image.asset(Assets.blob2),
           ),
           Positioned(
             top: MediaQuery.of(context).size.height / 5,
-            right: Consts.zero,
+            right: core_consts.Consts.zero,
             child: Image.asset(Assets.blob3),
           ),
           const _StartScreenLogo(),
@@ -50,16 +51,16 @@ class _StartScreenLogo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.only(
-            left: Consts.startScreen.handLeftPadding,
-            right: Consts.startScreen.handRightPadding,
+          padding: const EdgeInsets.only(
+            left: start_consts.Consts.handLeftPadding,
+            right: start_consts.Consts.handRightPadding,
           ),
           child: Image.asset(Assets.wavingHand),
         ),
         Padding(
-          padding: EdgeInsets.only(
-            top: Consts.startScreen.logoTextTopPadding,
-            bottom: Consts.startScreen.logoTextBottomPadding,
+          padding: const EdgeInsets.only(
+            top: start_consts.Consts.logoTextTopPadding,
+            bottom: start_consts.Consts.logoTextBottomPadding,
           ),
           child: Image.asset(Assets.logoText),
         ),
@@ -79,16 +80,16 @@ class _DescriptionAndButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Padding(
-          padding: EdgeInsets.only(
-            left: Consts.startScreen.startDescriptionTextLeftRightPadding,
-            right: Consts.startScreen.startDescriptionTextLeftRightPadding,
+          padding: const EdgeInsets.only(
+            left: start_consts.Consts.startDescriptionTextLeftRightPadding,
+            right: start_consts.Consts.startDescriptionTextLeftRightPadding,
           ),
           child: Text(
             Strings.startDescription,
             style: GoogleFonts.roboto(
               textStyle:
                   CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-                        fontSize: Consts.startScreen.startDescriptionTextSize,
+                        fontSize: start_consts.Consts.startDescriptionTextSize,
                         fontWeight: FontWeight.w300,
                       ),
             ),
@@ -96,11 +97,11 @@ class _DescriptionAndButton extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(
-            left: Consts.startScreen.startButtonLeftRightPadding,
-            right: Consts.startScreen.startButtonLeftRightPadding,
-            top: Consts.startScreen.startButtonTopPadding,
-            bottom: Consts.startScreen.startButtonBottomPadding,
+          padding: const EdgeInsets.only(
+            left: start_consts.Consts.startButtonLeftRightPadding,
+            right: start_consts.Consts.startButtonLeftRightPadding,
+            top: start_consts.Consts.startButtonTopPadding,
+            bottom: start_consts.Consts.startButtonBottomPadding,
           ),
           child: CupertinoButton(
             color: Colors.marromClaro2,
@@ -108,7 +109,7 @@ class _DescriptionAndButton extends StatelessWidget {
             child: Text(
               Strings.startButton,
               style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-                  fontSize: Consts.startScreen.startButtonTextSize,
+                  fontSize: start_consts.Consts.startButtonTextSize,
                   color: Colors.c1),
             ),
           ),
