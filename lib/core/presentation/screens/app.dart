@@ -1,19 +1,17 @@
-import 'package:flutter/cupertino.dart';
-
-import '../../../features/start/presentation/screens/start_screen/start_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:hello_li_layout/core/presentation/navigation/core_navigation.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  final Navigation navigation = Navigation();
+
+  App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      theme: CupertinoThemeData(
-        primaryColor: CupertinoColors.activeBlue,
-        scaffoldBackgroundColor: null,
-      ),
-      home: StartScreen(),
+      routes: navigation.routes,
+      onGenerateRoute: (settings) => navigation.onGenerateRoute(settings),
     );
   }
 }
