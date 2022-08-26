@@ -140,7 +140,7 @@ class _ModuleWidget extends StatelessWidget {
         HomeConsts.moduleWidthNeedsRemove;
     return Material(
       borderRadius: BorderRadius.circular(HomeConsts.moduleBorderRadius),
-      color: CoreColors.white,
+      color: CoreColors.c1,
       child: InkWell(
         onTap: () {},
         child: Row(
@@ -187,7 +187,7 @@ class _NameAndChipsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: HomeConsts.moduleAndChipsTopPadding),
+      padding: EdgeInsets.zero,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -196,7 +196,14 @@ class _NameAndChipsWidget extends StatelessWidget {
             padding: const EdgeInsets.only(
               bottom: HomeConsts.moduleAndChipsPadding,
             ),
-            child: Text(name),
+            child: Text(
+              name,
+              style: GoogleFonts.roboto(
+                fontWeight: FontWeight.w700,
+                fontSize: HomeConsts.descriptionTextFontSizeInCard,
+                height: HomeConsts.descriptionTextHeightInCard,
+              ),
+            ),
           ),
           Padding(
             padding:
@@ -420,7 +427,7 @@ class _Logo extends StatelessWidget {
         Image.asset(HomeAssets.helloHome),
         const SizedBox(width: CoreConsts.spaceBetweenLogoImageAndText),
         Text(
-          'LIvia',
+          'Livia',
           style: GoogleFonts.inter(
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.w300,
