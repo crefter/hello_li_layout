@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_li_layout/features/main/presentation/screens/main_screen/bottom_nav_bar_model.dart';
 import 'package:hello_li_layout/features/main/presentation/screens/main_screen/main_screen.dart';
 import 'package:hello_li_layout/features/start/presentation/screens/start_screen/start_screen.dart';
 
@@ -18,10 +19,12 @@ class Navigation {
       case Screens.main:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => const SafeArea(
-            child: MainScreen(),
+          builder: (context) => SafeArea(
+            child: BottomNavBarModel(
+                index: ValueNotifier<int>(0), child: const MainScreen()),
           ),
         );
     }
+    return null;
   }
 }
