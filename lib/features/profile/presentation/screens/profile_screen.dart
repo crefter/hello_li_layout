@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_li_layout/core/core_colors.dart';
-import 'package:hello_li_layout/features/main/presentation/screens/main_screen/bottom_nav_bar_model.dart';
+import 'package:hello_li_layout/features/main/presentation/screens/main_screen/bottom_nav_bar_inherited_widget.dart';
 import 'package:hello_li_layout/features/profile/profile_assets.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void didChangeDependencies() {
-    _index = BottomNavBarModel.watch(context).index;
+    _index = BottomNavBarInheritedWidget.watch(context).index;
     super.didChangeDependencies();
   }
 

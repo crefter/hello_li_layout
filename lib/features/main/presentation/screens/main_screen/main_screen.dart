@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_li_layout/core/core_colors.dart';
 import 'package:hello_li_layout/features/home/presentation/screens/home_screen/home_screen.dart';
-import 'package:hello_li_layout/features/main/presentation/screens/main_screen/bottom_nav_bar_model.dart';
+import 'package:hello_li_layout/features/main/presentation/screens/main_screen/bottom_nav_bar_inherited_widget.dart';
 import 'package:hello_li_layout/features/profile/presentation/screens/profile_screen.dart';
 import 'package:hello_li_layout/features/search/presentation/screens/search_screen.dart';
 import 'package:hello_li_layout/features/video/presentation/screens/video_screen.dart';
@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   @override
   void didChangeDependencies() {
-    _index = BottomNavBarModel.watch(context).index;
+    _index = BottomNavBarInheritedWidget.watch(context).index;
     super.didChangeDependencies();
   }
 
