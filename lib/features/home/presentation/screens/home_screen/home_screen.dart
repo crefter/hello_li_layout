@@ -3,24 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_li_layout/core/core_colors.dart';
 import 'package:hello_li_layout/core/core_consts.dart';
-import 'package:hello_li_layout/features/home/domain/entities/module.dart';
 import 'package:hello_li_layout/features/home/home_assets.dart';
 import 'package:hello_li_layout/features/home/home_colors.dart';
 import 'package:hello_li_layout/features/home/home_consts.dart';
+import 'package:hello_li_layout/features/home/presentation/dto/module_dto.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const List<Module> _modules = [
-    Module(
+  static const List<ModuleDto> _modules = [
+    ModuleDto(
         image: HomeAssets.thumbsUp,
         name: 'Числа',
         videosCount: 4,
         isLocked: true),
-    Module(
+    ModuleDto(
         image: HomeAssets.raisedFist,
         name: 'Грамматика',
         videosCount: 8,
         isLocked: true),
-    Module(
+    ModuleDto(
         image: HomeAssets.wavingHand,
         name: 'Приветствие',
         videosCount: 16,
@@ -113,7 +113,7 @@ class _ModuleItemWidget extends StatelessWidget {
     required this.module,
   }) : super(key: key);
 
-  final Module module;
+  final ModuleDto module;
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +130,7 @@ class _ModuleWidget extends StatelessWidget {
     required this.module,
   }) : super(key: key);
 
-  final Module module;
+  final ModuleDto module;
 
   @override
   Widget build(BuildContext context) {
