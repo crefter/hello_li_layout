@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_li_layout/core/core_colors.dart';
 import 'package:hello_li_layout/features/main/presentation/screens/main_screen/bottom_nav_bar_inherited_widget.dart';
+import 'package:hello_li_layout/features/profile/presentation/dto/settings_list_state_dto.dart';
+import 'package:hello_li_layout/features/profile/presentation/screens/settings_list_inherited_widget.dart';
 import 'package:hello_li_layout/features/profile/profile_assets.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -68,9 +70,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               height: 32,
             ),
           ])),
-          const SliverPadding(
-            padding: EdgeInsets.only(left: 16, right: 16),
-            sliver: _SettingsList(),
+          SliverPadding(
+            padding: const EdgeInsets.only(left: 16, right: 16),
+            sliver: SettingsListInheritedWidget(child: const _SettingsList()),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(height: 16),
@@ -92,9 +94,6 @@ class _SettingsList extends StatefulWidget {
 
 class _SettingsListState extends State<_SettingsList> {
   late final List<_SettingsItemListState> _states;
-  bool _valueNotification = false;
-  bool _valueMode = false;
-  bool _valueTimer = false;
 
   @override
   void initState() {
@@ -132,11 +131,15 @@ class _SettingsListState extends State<_SettingsList> {
           height: 48,
           child: FittedBox(
             fit: BoxFit.contain,
-            child: CupertinoSwitch(
-              value: _valueNotification,
-              onChanged: (value) => setState(() {
-                _valueNotification = value;
-              }),
+            child: ValueListenableBuilder<SettingsListStateDto>(
+              valueListenable:
+                  SettingsListInheritedWidget.of(context).settingsListState,
+              builder: (_, value, __) {
+                return CupertinoSwitch(
+                    value: value.valueNotification,
+                    onChanged: (newValue) =>
+                        value.valueNotification = newValue);
+              },
             ),
           ),
         ),
@@ -149,11 +152,14 @@ class _SettingsListState extends State<_SettingsList> {
           height: 48,
           child: FittedBox(
             fit: BoxFit.contain,
-            child: CupertinoSwitch(
-              value: _valueTimer,
-              onChanged: (value) => setState(() {
-                _valueTimer = value;
-              }),
+            child: ValueListenableBuilder<SettingsListStateDto>(
+              valueListenable:
+                  SettingsListInheritedWidget.of(context).settingsListState,
+              builder: (_, value, __) {
+                return CupertinoSwitch(
+                    value: value.valueTimer,
+                    onChanged: (newValue) => value.valueTimer = newValue);
+              },
             ),
           ),
         ),
@@ -166,12 +172,14 @@ class _SettingsListState extends State<_SettingsList> {
           height: 48,
           child: FittedBox(
             fit: BoxFit.contain,
-            child: CupertinoSwitch(
-              value: _valueMode,
-              onChanged: (value) => setState(() {
-                _valueMode = value;
-              }),
-            ),
+            child: ValueListenableBuilder<SettingsListStateDto>(
+                valueListenable:
+                    SettingsListInheritedWidget.of(context).settingsListState,
+                builder: (_, value, ___) {
+                  return CupertinoSwitch(
+                      value: value.valueMode,
+                      onChanged: (newValue) => value.valueMode = newValue);
+                }),
           ),
         ),
       ),
