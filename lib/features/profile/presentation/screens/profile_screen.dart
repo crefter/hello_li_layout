@@ -26,11 +26,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: CoreColors.white,
+      color: CoreColors.backgroundColor,
       child: CustomScrollView(
         slivers: [
           SliverAppBar(
-            backgroundColor: CoreColors.white,
+            backgroundColor: CoreColors.backgroundColor,
             leading: IconButton(
               onPressed: () {
                 _index.value = 0;

@@ -10,8 +10,16 @@ class BottomNavBarInheritedWidget extends InheritedWidget {
   }) : super(key: key, child: child);
 
   static BottomNavBarInheritedWidget watch(BuildContext context) {
+    final BottomNavBarInheritedWidget? result = context
+        .dependOnInheritedWidgetOfExactType<BottomNavBarInheritedWidget>();
+    assert(result != null, 'No BottomNavBarModel found in context');
+    return result!;
+  }
+
+  static BottomNavBarInheritedWidget read(BuildContext context) {
     final BottomNavBarInheritedWidget? result =
-    context.dependOnInheritedWidgetOfExactType<BottomNavBarInheritedWidget>();
+        context.getElementForInheritedWidgetOfExactType<
+            BottomNavBarInheritedWidget>() as BottomNavBarInheritedWidget?;
     assert(result != null, 'No BottomNavBarModel found in context');
     return result!;
   }

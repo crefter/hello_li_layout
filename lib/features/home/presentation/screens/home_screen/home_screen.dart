@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_li_layout/core/core_colors.dart';
 import 'package:hello_li_layout/core/core_consts.dart';
+import 'package:hello_li_layout/core/presentation/navigation/core_navigation.dart';
 import 'package:hello_li_layout/features/home/home_assets.dart';
 import 'package:hello_li_layout/features/home/home_colors.dart';
 import 'package:hello_li_layout/features/home/home_consts.dart';
@@ -11,16 +12,19 @@ import 'package:hello_li_layout/features/home/presentation/dto/module_dto.dart';
 class HomeScreen extends StatelessWidget {
   static const List<ModuleDto> _modules = [
     ModuleDto(
+        id: 0,
         image: HomeAssets.thumbsUp,
         name: 'Числа',
         videosCount: 4,
-        isLocked: true),
+        isLocked: false),
     ModuleDto(
+        id: 1,
         image: HomeAssets.raisedFist,
         name: 'Грамматика',
         videosCount: 8,
         isLocked: true),
     ModuleDto(
+        id: 2,
         image: HomeAssets.wavingHand,
         name: 'Приветствие',
         videosCount: 16,
@@ -142,7 +146,13 @@ class _ModuleWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(HomeConsts.moduleBorderRadius),
       color: CoreColors.c1,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          if (module.isLocked) {
+            return;
+          } else {
+            _goToTest(context, module.id);
+          }
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -160,6 +170,10 @@ class _ModuleWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _goToTest(BuildContext context, int moduleId) {
+    Navigator.pushNamed(context, Screens.test, arguments: moduleId);
   }
 }
 
@@ -390,7 +404,7 @@ class _ButtonInCard extends StatelessWidget {
       borderRadius: const BorderRadius.all(
         Radius.circular(HomeConsts.buttonInCardBorderRadius),
       ),
-      color: CoreColors.white,
+      color: CoreColors.backgroundColor,
       child: InkWell(
         onTap: () {},
         child: Padding(
