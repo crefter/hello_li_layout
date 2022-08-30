@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_li_layout/core/core_colors.dart';
 import 'package:hello_li_layout/features/test/presentation/test_assets.dart';
 import 'package:hello_li_layout/features/test/presentation/test_colors.dart';
+import 'package:hello_li_layout/features/test/presentation/test_consts.dart';
 import 'package:hello_li_layout/features/test/presentation/widgets/test_inherited_widget.dart';
 
 class TestScreen extends StatefulWidget {
@@ -36,9 +37,11 @@ class _TestScreenState extends State<TestScreen> {
               automaticallyImplyLeading: false,
               title: SizedBox(
                 height: 16,
-                width: MediaQuery.of(context).size.width - 125,
+                width: MediaQuery.of(context).size.width -
+                    TestConsts.gapFromProgressToCross,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius: BorderRadius.circular(
+                      TestConsts.progressIndicatorBorderRadius),
                   child: LinearProgressIndicator(
                     value: progress,
                     backgroundColor: CoreColors.c2,
@@ -61,9 +64,11 @@ class _TestScreenState extends State<TestScreen> {
               width: 0,
             ),
             _VideoWidget(),
-            const _SliverSizedBox(height: 16, width: 0),
+            const _SliverSizedBox(
+                height: TestConsts.gapBetweenVideoAndText, width: 0),
             _TextWidget(),
-            const _SliverSizedBox(height: 32, width: 0),
+            const _SliverSizedBox(
+                height: TestConsts.gapBetweenTextAndOptions, width: 0),
             _testInherited.isFinished
                 ? const SliverToBoxAdapter(
                     child: Center(
@@ -71,21 +76,27 @@ class _TestScreenState extends State<TestScreen> {
                     ),
                   )
                 : SliverPadding(
-                    padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                    padding: const EdgeInsets.only(
+                        left: TestConsts.optionsPadding,
+                        right: TestConsts.optionsPadding),
                     sliver: _OptionsList(
                       question: _testInherited.question,
                     ),
                   ),
-            const _SliverSizedBox(height: 56, width: 0),
+            const _SliverSizedBox(
+                height: TestConsts.gapBetweenOptionsAndVerificationButton,
+                width: 0),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: TestConsts.verificationButtonPadding),
                 child: _VerificationButton(
                   onTapped: _verificationButtonClicked,
                 ),
               ),
             ),
-            const _SliverSizedBox(height: 41, width: 0),
+            const _SliverSizedBox(
+                height: TestConsts.paddingFromBottom, width: 0),
           ],
         ),
       ),
@@ -146,12 +157,12 @@ class _OptionsListState extends State<_OptionsList> {
                   onChanged: (newValue) => _radioOnTapped(newValue, index),
                 ),
                 const SizedBox(
-                  width: 16,
+                  width: TestConsts.gapBetweenRadioAndOptionText,
                 ),
                 Text(
                   _testInherited.questions[widget.question].options[index],
                   style: const TextStyle(
-                    fontSize: 28,
+                    fontSize: TestConsts.optionTextSize,
                   ),
                 ),
               ],
@@ -175,12 +186,12 @@ class _TextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.only(left: 16.0),
+        padding: const EdgeInsets.only(left: TestConsts.textLeftPadding),
         child: Text(
           'Selecione o que foi mostrado no video',
           style: GoogleFonts.roboto(
-              fontSize: 16,
-              height: 1.5,
+              fontSize: TestConsts.textSize,
+              height: TestConsts.textHeight,
               color: CoreColors.marromEscuro,
               fontWeight: FontWeight.w300),
         ),
@@ -222,7 +233,7 @@ class _InfoWidget extends StatelessWidget {
       icon: const Icon(
         Icons.info,
         color: CoreColors.c2,
-        size: 20,
+        size: TestConsts.infoIconSize,
       ),
     );
   }
@@ -236,7 +247,7 @@ class _PlayButtonWidget extends StatelessWidget {
       icon: const Icon(
         Icons.play_circle_fill_outlined,
         color: CoreColors.marromEscuro,
-        size: 33,
+        size: TestConsts.playIconSize,
       ),
     );
   }
@@ -250,10 +261,11 @@ class _VerificationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 42,
+      height: TestConsts.verificationButtonHeight,
       child: Material(
         color: CoreColors.marromClaro2,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius:
+            BorderRadius.circular(TestConsts.verificationButtonBorderRadius),
         child: InkWell(
           onTap: TestInheritedWidget.of(context).isFinished
               ? () => Navigator.pop(context)
@@ -263,8 +275,8 @@ class _VerificationButton extends StatelessWidget {
               TestInheritedWidget.of(context).buttonText,
               style: GoogleFonts.roboto(
                 fontWeight: FontWeight.w700,
-                fontSize: 16,
-                height: 1.5,
+                fontSize: TestConsts.textSize,
+                height: TestConsts.textHeight,
                 color: CoreColors.c1,
               ),
             ),
