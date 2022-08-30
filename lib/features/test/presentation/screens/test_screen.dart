@@ -1,46 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_li_layout/core/core_colors.dart';
-import 'package:hello_li_layout/features/test/presentation/dto/module_dto.dart';
-import 'package:hello_li_layout/features/test/presentation/dto/question_dto.dart';
 import 'package:hello_li_layout/features/test/presentation/test_assets.dart';
 import 'package:hello_li_layout/features/test/presentation/test_colors.dart';
-
-final ModuleDto moduleDto = ModuleDto(
-  questions: [
-    QuestionDto(
-        videoLink: TestAssets.video,
-        options: ['👍 🤟 🤞 ✊ 🤙', '🤞 🤙 👍 ✊ 🤟', '✊ 👍 🤞 🤟 🤙'],
-        answer: 0),
-    QuestionDto(
-        videoLink: TestAssets.video,
-        options: ['🤞 🤙 👍 ✊ 🤟', '👍 🤟 🤞 ✊ 🤙', '✊ 👍 🤞 🤟 🤙'],
-        answer: 1),
-    QuestionDto(
-        videoLink: TestAssets.video,
-        options: ['✊ 👍 🤞 🤟 🤙', '🤞 🤙 👍 ✊ 🤟', '👍 🤟 🤞 ✊ 🤙'],
-        answer: 2),
-  ],
-);
-
-int answer = -1;
+import 'package:hello_li_layout/features/test/presentation/widgets/test_inherited_widget.dart';
 
 class TestScreen extends StatefulWidget {
-  final int moduleId;
-
-  const TestScreen({Key? key, required this.moduleId}) : super(key: key);
+  const TestScreen({Key? key}) : super(key: key);
 
   @override
   State<TestScreen> createState() => _TestScreenState();
 }
 
 class _TestScreenState extends State<TestScreen> {
-  int question = 0;
+  late final TestInheritedWidget _testInherited;
   late double progress;
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _testInherited = TestInheritedWidget.of(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    progress = question.toDouble() / (moduleDto.questions.length - 1);
+    progress = _testInherited.question.toDouble() /
+        (_testInherited.questions.length - 1);
     return Scaffold(
       body: ColoredBox(
         color: CoreColors.backgroundColor,
@@ -79,12 +64,18 @@ class _TestScreenState extends State<TestScreen> {
             const _SliverSizedBox(height: 16, width: 0),
             _TextWidget(),
             const _SliverSizedBox(height: 32, width: 0),
-            SliverPadding(
-              padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-              sliver: _OptionsList(
-                question: question,
-              ),
-            ),
+            _testInherited.isFinished
+                ? const SliverToBoxAdapter(
+                    child: Center(
+                      child: Text('Тест выполнен!'),
+                    ),
+                  )
+                : SliverPadding(
+                    padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                    sliver: _OptionsList(
+                      question: _testInherited.question,
+                    ),
+                  ),
             const _SliverSizedBox(height: 56, width: 0),
             SliverToBoxAdapter(
               child: Padding(
@@ -103,10 +94,13 @@ class _TestScreenState extends State<TestScreen> {
 
   void _verificationButtonClicked() {
     setState(() {
-      if (question < moduleDto.questions.length - 1 &&
-          answer == moduleDto.questions[question].answer) {
-        answer = -1;
-        question++;
+      if (_testInherited.question < _testInherited.questions.length &&
+          _testInherited.answer ==
+              _testInherited.questions[_testInherited.question].answer) {
+        _testInherited.nextQuestion();
+      }
+      if (_testInherited.isFinished) {
+        _testInherited.testFinished();
       }
     });
   }
@@ -123,25 +117,31 @@ class _OptionsList extends StatefulWidget {
 
 class _OptionsListState extends State<_OptionsList> {
   String? _character = 'zero';
+  late final TestInheritedWidget _testInherited;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _testInherited = TestInheritedWidget.of(context);
+  }
 
   @override
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        childCount: moduleDto.questions[widget.question].options.length,
+        childCount: _testInherited.questions[widget.question].options.length,
         (context, index) {
           return InkWell(
             onTap: () {
               _radioOnTapped(
-                  moduleDto.questions[widget.question].options[index], index);
-              if (index == moduleDto.questions[widget.question].answer) {
-                answer = index;
-              }
+                  _testInherited.questions[widget.question].options[index],
+                  index);
             },
             child: Row(
               children: [
                 Radio<String>(
-                  value: moduleDto.questions[widget.question].options[index],
+                  value:
+                      _testInherited.questions[widget.question].options[index],
                   groupValue: _character,
                   onChanged: (newValue) => _radioOnTapped(newValue, index),
                 ),
@@ -149,7 +149,7 @@ class _OptionsListState extends State<_OptionsList> {
                   width: 16,
                 ),
                 Text(
-                  moduleDto.questions[widget.question].options[index],
+                  _testInherited.questions[widget.question].options[index],
                   style: const TextStyle(
                     fontSize: 28,
                   ),
@@ -165,7 +165,7 @@ class _OptionsListState extends State<_OptionsList> {
   void _radioOnTapped(String? newValue, int index) {
     setState(() {
       _character = newValue;
-      answer = index;
+      _testInherited.onRadioTapped(index);
     });
   }
 }
@@ -255,10 +255,12 @@ class _VerificationButton extends StatelessWidget {
         color: CoreColors.marromClaro2,
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
-          onTap: onTapped,
+          onTap: TestInheritedWidget.of(context).isFinished
+              ? () => Navigator.pop(context)
+              : onTapped,
           child: Center(
             child: Text(
-              'Verificar',
+              TestInheritedWidget.of(context).buttonText,
               style: GoogleFonts.roboto(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,

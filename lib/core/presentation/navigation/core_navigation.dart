@@ -3,6 +3,7 @@ import 'package:hello_li_layout/features/main/presentation/screens/main_screen/b
 import 'package:hello_li_layout/features/main/presentation/screens/main_screen/main_screen.dart';
 import 'package:hello_li_layout/features/start/presentation/screens/start_screen/start_screen.dart';
 import 'package:hello_li_layout/features/test/presentation/screens/test_screen.dart';
+import 'package:hello_li_layout/features/test/presentation/widgets/test_inherited_widget.dart';
 
 abstract class Screens {
   static const String start = '/';
@@ -31,8 +32,9 @@ class Navigation {
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => SafeArea(
-            child: TestScreen(
-              moduleId: moduleId,
+            child: TestInheritedWidget(
+              id: moduleId,
+              child: const TestScreen(),
             ),
           ),
         );
